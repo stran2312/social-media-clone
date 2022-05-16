@@ -88,6 +88,9 @@ if(isset($_POST['register_button'])){
 
 	if(strlen($password) > 30 || strlen($password) < 5) array_push($error_array, "Passwords don't match<br>");
 
+	if(empty($error_array)){
+		$password  = md5($password);
+	}
 
 
 
