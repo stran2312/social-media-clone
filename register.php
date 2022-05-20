@@ -86,13 +86,13 @@ if(isset($_POST['register_button'])){
 	if(empty($error_array)){
 		$password  = md5($password);
 		$username = strtolower($fname . "_" . $lname);
-		$result  = mysqli_query($con, "SELECT username FROM users where username = '$username'");
+		$result  = mysqli_query($con, "SELECT user_name FROM users where user_name = '$username'");
 		$row_count = mysqli_num_rows($result);
 		$i = 0;
 		while($row_count != 0){
 			$i++;
 			$username = $username . "_" . $i;
-			$result = mysqli_query($con, "SELECT username FROM users where username = '$username'");
+			$result = mysqli_query($con, "SELECT user_name FROM users where user_name = '$username'");
 		}
 
 		// profile picture
@@ -102,6 +102,7 @@ if(isset($_POST['register_button'])){
 
 		array_push($error_array, "<span style='color: #14C800;'>You're all set to login</span><br>");
 
+		$query = mysqli_query($con, "INSERT INTO users VALUES ('','$fname', '$lname','$username', '$email','$password', '$date', '$profile_pic', '0', '0', 'no', ',')");
 		// clear session 
 		$_SESSION['reg_fname'] = "";
 		$_SESSION['reg_lname'] = "";
@@ -148,6 +149,24 @@ if(isset($_POST['log_button'])) {
 	<title>Welcome to Swizz Feed</title>
 </head>
 <body>
+
+
+
+	<?php 
+		if(isset($_POST['register_button'])) {
+			echo '
+			<script> 
+				$(document).read(function() {
+					$("#first").hide();
+					$("#second").show();
+				});
+
+			</script>';
+
+		}
+
+
+	?>
 	<div class="wrapper">
 		<div id="login_box">
 			
